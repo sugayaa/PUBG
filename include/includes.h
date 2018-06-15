@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 //Bibliotecas Allegro5
 #include <allegro5/allegro.h>
@@ -21,6 +22,9 @@
 
 //Constantes
 #define FPS 30
+#define WIDTH 1280
+#define HEIGHT 720
+#define GAME_TITLE "PUBG - Planet Ultimate Board Game"
 
 //Cores
 #define COLOR_RED al_map_rgb(255,0,0)

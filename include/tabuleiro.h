@@ -1,6 +1,6 @@
 #ifndef TABULEIRO_H
 #define TABULEIRO_H
-#include "constants.h"
+#include "includes.h"
 
 //fila estaticamente implementada
 typedef struct tabTile{

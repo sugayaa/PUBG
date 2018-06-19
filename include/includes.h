@@ -19,8 +19,10 @@
 
 //Bibliotecas Próprias
 #include "menu.h"
+#include "tabuleiro.h"
 
 //Constantes
+#define TAM 100
 #define FPS 30
 #define WIDTH 1280
 #define HEIGHT 720

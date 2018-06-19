@@ -1,5 +1,4 @@
-#include"../include/tabuleiro.h"
-#include<time.h>
+#include"../include/includes.h"
 
 void Limpa(tabuleiro* t){
 	int i;
@@ -46,8 +45,4 @@ void Armageddon(tabuleiro* t){
 	//player dead
 	
 	t->_final = (t->_final+ intensidade) % 100;
-}
-
-int main(){
-	return 0;
 }

@@ -17,16 +17,16 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_primitives.h>
 
-//Bibliotecas Próprias
-#include "menu.h"
-#include "tabuleiro.h"
-
 //Constantes
-#define TAM 100
 #define FPS 30
+#define TAM 100
 #define WIDTH 1280
 #define HEIGHT 720
 #define GAME_TITLE "PUBG - Planet Ultimate Board Game"
+
+//Bibliotecas Próprias
+#include "menu.h"
+#include "tabuleiro.h"
 
 //Cores
 #define COLOR_RED al_map_rgb(255,0,0)

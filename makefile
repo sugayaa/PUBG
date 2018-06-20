@@ -1,19 +1,12 @@
 CXX = gcc
-OUT = PUBG
+LIBS = -lallegro -lallegro_ttf -lallegro_font -lallegro_image -lallegro_audio -lallegro_acodec -lallegro_primitives
+CFLAGS = -Wall -Wextra
 
-src = *.c src/*.c
-incl = *.h include/*.h
+SRC = source/main.c source/menu.c source/tabuleiro.c
 
-CXXFLAGS = -Wall
-LIBS = -lallegro
+execute:
+	$(CXX) -o PUBG.run $(SRC) $(LIBS) $(CFLAGS) $(INC)
+	./PUBG.run
 
-install: compile
-
-compile: depend
-	$(CXX) -o $(OUT) $^ $(CXXFLAGS) $(LIBS)
-
-depend:
-	$(CXX) $(src) $(CXXFLAGS) $(LIBS)
-
-remove:
-	@rm -f $(OUT)
+clear:
+	rm PUBG.run

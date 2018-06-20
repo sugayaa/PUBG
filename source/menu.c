@@ -46,6 +46,9 @@ void Intro(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *intro, int sprites){
 void FirstMenu(){
 
 	//Variaveis
+	int logoWidth, logoHeight;
+	float logoVariation = 0;
+	bool start = false;
 	bool exit = false;
 	ALLEGRO_EVENT event;
 
@@ -56,6 +59,10 @@ void FirstMenu(){
 
 	//Caminho dos arquivos deve ser relativo ao executável (No momento, em /PUBG/PUBG.run)
 	ALLEGRO_BITMAP *introOne = al_load_bitmap("media/img/intro_one.png");
+	ALLEGRO_BITMAP *logo = al_load_bitmap("media/img/logo.png");
+
+	logoWidth = al_get_bitmap_width(logo);
+	logoHeight = al_get_bitmap_height(logo);
 
 	//Configurações Internas
 	al_set_window_title(display, GAME_TITLE);
@@ -68,7 +75,8 @@ void FirstMenu(){
 	Intro(display, introOne, 12);
 
 	while(!exit){
-
+		al_clear_to_color(COLOR_WHITE);
+		al_draw_scaled_bitmap(logo, 0, 0, logoWidth, logoHeight, (WIDTH * 0.5) - (logoWidth * RATIO * 0.5), (HEIGHT * 0.5) - (logoHeight * RATIO * 0.5) - logoVariation, logoWidth * RATIO, logoHeight * RATIO, 0);
 		al_flip_display();
 		al_wait_for_event(eventQueue, &event);
 
@@ -77,10 +85,21 @@ void FirstMenu(){
 			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
 				exit = true;
 			}
+			//ENTER para INICIAR
+			if(event.keyboard.keycode == ALLEGRO_KEY_ENTER){
+				start = true;
+			}
 		}
 		//Clicar no X para SAIR
 		if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
 			exit = true;
+		}
+
+		if(start){
+			logoVariation += (float)HEIGHT * 0.005;
+			if(logoVariation >= (float)HEIGHT * 0.35){
+				start = false;
+			}
 		}
 	}
 

@@ -11,8 +11,8 @@ bool IsAFK(player *p){
 }
 
 void Mover(player *p){
-	if(isAFK(p)){
-		afk -= 1;
+	if(IsAFK(p)){
+		p->afk -= 1;
 		return;
 	}
 	srand(time(NULL));

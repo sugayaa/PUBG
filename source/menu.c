@@ -53,6 +53,7 @@ void FirstMenu(){
 	ALLEGRO_EVENT event;
 
 	//Leitura de Arquivos
+	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.1), 0);
 	ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS);
 	ALLEGRO_DISPLAY *display = al_create_display(WIDTH, HEIGHT);
 	ALLEGRO_EVENT_QUEUE *eventQueue = al_create_event_queue();
@@ -77,6 +78,7 @@ void FirstMenu(){
 	while(!exit){
 		al_clear_to_color(COLOR_WHITE);
 		al_draw_scaled_bitmap(logo, 0, 0, logoWidth, logoHeight, (WIDTH * 0.5) - (logoWidth * RATIO * 0.5), (HEIGHT * 0.5) - (logoHeight * RATIO * 0.5) - logoVariation, logoWidth * RATIO, logoHeight * RATIO, 0);
+		al_draw_text(font, COLOR_BLACK, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "Press ENTER to Play");
 		al_flip_display();
 		al_wait_for_event(eventQueue, &event);
 
@@ -99,6 +101,7 @@ void FirstMenu(){
 			logoVariation += (float)HEIGHT * 0.005;
 			if(logoVariation >= (float)HEIGHT * 0.35){
 				start = false;
+				SecondMenu(display, font, timer, eventQueue, &event, logo);
 			}
 		}
 	}
@@ -107,3 +110,8 @@ void FirstMenu(){
 	al_destroy_display(display);
 	al_destroy_event_queue(eventQueue);
 }
+
+void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *timer,
+				ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event, ALLEGRO_BITMAP *logo){
+
+};

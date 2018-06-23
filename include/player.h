@@ -4,7 +4,7 @@
 typedef struct p{
 	int pos;
 	int afk;
-	allegro_bitmap* sprite;
+	ALLEGRO_BITMAP* sprite;
 }player;
 
 void IniciarPlayer(player*);

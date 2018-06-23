@@ -20,6 +20,7 @@
 //Constantes
 #define FPS 30
 #define TAM 100
+#define TAM_DADO 20
 #define WIDTH 1280
 #define HEIGHT 720
 #define RATIO WIDTH/HEIGHT		//(Se houver como alterar a resolução, alterar aqui)
@@ -28,6 +29,7 @@
 //Bibliotecas Próprias
 #include "menu.h"
 #include "tabuleiro.h"
+#include "player.h"
 
 //Cores
 #define COLOR_RED al_map_rgb(255,0,0)

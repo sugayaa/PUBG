@@ -23,7 +23,6 @@
 #define TAM_DADO 20
 #define WIDTH 1280
 #define HEIGHT 720
-#define RATIO WIDTH/HEIGHT		//(Se houver como alterar a resolução, alterar aqui)
 #define GAME_TITLE "PUBG - Planet Ultimate Board Game"
 
 //Bibliotecas Próprias

@@ -19,7 +19,7 @@
 
 //Constantes
 #define FPS 30
-#define TAM 100
+#define TAM 38
 #define TAM_DADO 6
 #define WIDTH 1280
 #define HEIGHT 720
@@ -41,12 +41,12 @@
 //Bibliotecas Próprias
 #include "menu.h"
 #include "game.h"
+#include "pair.h"
+#include "carta.h"
 #include "player.h"
 #include "tabuleiro.h"
 #include "staticQueue.h"
-#include "carta.h"
 #include "staticStack.h"
-#include "pair.h"
 
 //Cores
 #define COLOR_RED al_map_rgb(255,0,0)

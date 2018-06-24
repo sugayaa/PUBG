@@ -73,7 +73,7 @@ void FirstMenu(){
 
 	al_start_timer(timer);
 
-	//Intro(display, introOne, 12);
+	Intro(display, introOne, 12);
 
 	while(!exit){
 		al_draw_bitmap(menuBackground, 0, 0, 0);

@@ -23,11 +23,11 @@ void Mover(player *p){
 }
 
 void Dormir(player *p){
-	p->afk += 10;
+	p->afk += 3;
 }
 
 void Paralisar(player *p){
-	p->afk += 5;
+	p->afk += 2;
 }
 
 int getPosicao(player *p){

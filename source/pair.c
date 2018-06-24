@@ -44,6 +44,6 @@ void setAllPosition(pair *p){
 	setPos(&p[35], 795, 65);
 	setPos(&p[36], 795, 135);
 	setPos(&p[37], 795, 200);
-	setPos(&p[38], 825, 280);
+	setPos(&p[38], 795, 255);
 }
 

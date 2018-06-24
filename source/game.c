@@ -46,6 +46,42 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	setAllPosition(playersPositions);
 
 	while(!exit){
+		al_wait_for_event(eventQueue, event);
+
+		if(event->type == ALLEGRO_EVENT_KEY_DOWN){
+			//ESC para SAIR
+			if(event->keyboard.keycode == ALLEGRO_KEY_ESCAPE){
+				exit = true;
+			}
+
+			if(event->keyboard.keycode == ALLEGRO_KEY_SPACE){
+
+				player atual = pop(&playersQueue);
+
+				if(IsAFK(&atual)){}
+					//Exibir mensagem de apertar enter para passar a vez
+					//Funcao mover trata isso
+				Mover(&players[atual.ID]);
+				if(!IsAFK(&atual) && getEfeito(&gameArena, getPosicao(&players[atual.ID]))){
+					Dormir(&players[atual.ID]);
+				}
+				//Condição de Vitória
+				if(players[atual.ID].pos > TAM){
+					players[atual.ID].pos = 38;		//Ultima casa do Jogo
+				}
+				//joga jogador novamente no final da fila de turnos
+				push(&playersQueue, players[atual.ID]);
+			}
+
+			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
+				printf("codigo da carta: %d\n", top(&baralho).id);
+				popStack(&baralho);
+			}
+		}
+		//Clicar no X para SAIR
+		if(event->type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+			exit = true;
+		}
 
 		al_draw_bitmap(gameBackground, 0, 0, 0);
 		switch(numberPlayers){
@@ -60,42 +96,5 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 		}
 
 		al_flip_display();
-		al_wait_for_event(eventQueue, event);
-
-		if(event->type == ALLEGRO_EVENT_KEY_DOWN){
-			//ESC para SAIR
-			if(event->keyboard.keycode == ALLEGRO_KEY_ESCAPE){
-				exit = true;
-			}
-
-			if(event->keyboard.keycode == ALLEGRO_KEY_SPACE){
-				//push(&playersQueue, pop(&playersQueue));
-				player atual = pop(&playersQueue);
-				//printf("%d\n", atual.ID); //Debugging purposes
-				//player andando
-				if(IsAFK(&atual)){}
-					//Exibir mensagem de apertar enter para passar a vez
-					//Funcao mover trata isso
-				Mover(&players[atual.ID]);
-				if(!IsAFK(&atual) && getEfeito(&gameArena, getPosicao(&players[atual.ID]))){
-					Dormir(&players[atual.ID]);
-				}
-				if(players[atual.ID].pos > TAM){}
-					//printf("Jogador %d ganhou o jogo!!", atual.ID + 1);
-					//Exibir mensagem que jogador ganhou e terminar o jogo
-
-				//joga jogador novamente no final da fila de turnos
-				push(&playersQueue, players[atual.ID]);
-			}
-
-			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
-				printf("codigo da carta: %d\n", top(&baralho).id);
-				popStack(&baralho);
-			}
-		}
-		//Clicar no X para SAIR
-		if(event->type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-			exit = true;
-		}
 	}
 }

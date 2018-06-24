@@ -40,10 +40,11 @@
 
 //Bibliotecas Próprias
 #include "menu.h"
-#include "tabuleiro.h"
-#include "player.h"
-#include "staticQueue.h"
+#include "game.h"
 #include "carta.h"
+#include "player.h"
+#include "tabuleiro.h"
+#include "staticQueue.h"
 #include "staticStack.h"
 
 //Cores

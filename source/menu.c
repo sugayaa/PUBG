@@ -44,7 +44,6 @@ void Intro(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *intro, int sprites){
 }
 
 void FirstMenu(){
-
 	//Variaveis
 	int logoWidth, logoHeight;
 	float logoVariation = 0, logoDimension = 1.5;
@@ -123,7 +122,7 @@ void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *tim
 				ALLEGRO_BITMAP *menuBackground){
 
 	bool exit = false;
-	int option = 0;
+	int numberPlayers = 1, option = 0;
 	int logoWidth = al_get_bitmap_width(logo);
 	int logoHeight = al_get_bitmap_height(logo);
 
@@ -141,21 +140,28 @@ void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *tim
 		al_draw_bitmap_region(astronauts, 1 * 128, 0, 128, 128, WIDTH * 0.5 - 61, HEIGHT * 0.5 - 64, 0);
 		al_draw_text(font, COLOR_WHITE, WIDTH * 0.8, HEIGHT * 0.5, ALLEGRO_ALIGN_CENTER, "4 Players");
 		al_draw_bitmap_region(astronauts, 2 * 128, 0, 128, 128, WIDTH * 0.8 - 61, HEIGHT * 0.4 - 64, 0);
-		al_draw_text(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "Options");
+		al_draw_text(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "Play");
 		al_draw_text(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.9, ALLEGRO_ALIGN_CENTER, "Exit");
+
+		switch(numberPlayers){
+			case 2:
+				al_draw_tinted_bitmap(light, al_map_rgba(100, 100, 100, 100), WIDTH * 0.2 - 64, HEIGHT * 0.4 - 186, 0);
+				break;
+			case 3:
+				al_draw_tinted_bitmap(light, al_map_rgba(100, 100, 100, 100), WIDTH * 0.5 - 64, HEIGHT * 0.5 - 186, 0);
+				break;
+			case 4:
+				al_draw_tinted_bitmap(light, al_map_rgba(100, 100, 100, 100), WIDTH * 0.8 - 64, HEIGHT * 0.4 - 186, 0);
+				break;
+		}
 
 		switch(option){
 			case 0:
-				al_draw_tinted_bitmap(light, al_map_rgba(100, 100, 100, 100), WIDTH * 0.2 - 64, HEIGHT * 0.4 - 186, 0);
+				al_draw_text(font, COLOR_WHITE, WIDTH * 0.4, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, ">>");
 				break;
 			case 1:
-				al_draw_tinted_bitmap(light, al_map_rgba(100, 100, 100, 100), WIDTH * 0.5 - 64, HEIGHT * 0.5 - 186, 0);
+				al_draw_text(font, COLOR_WHITE, WIDTH * 0.4, HEIGHT * 0.9, ALLEGRO_ALIGN_CENTER, ">>");
 				break;
-			case 2:
-				al_draw_tinted_bitmap(light, al_map_rgba(100, 100, 100, 100), WIDTH * 0.8 - 64, HEIGHT * 0.4 - 186, 0);
-				break;
-			case 3: break;
-			case 4: break;
 		}
 
 		al_flip_display();
@@ -170,14 +176,40 @@ void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *tim
 
 			switch(event->keyboard.keycode){
 				case ALLEGRO_KEY_LEFT:
-					option--; break;
+					numberPlayers--; break;
 				case ALLEGRO_KEY_RIGHT:
-					option++; break;
+					numberPlayers++; break;
+				case ALLEGRO_KEY_UP:
+					option = 0; break;
+				case ALLEGRO_KEY_DOWN:
+					option = 1; break;
+
+			}
+
+			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
+				switch(option){
+					case 0: 
+						Game(display, timer, eventQueue, event, numberPlayers);
+						break;
+					case 1:
+						exit = true;
+						break;
+				}
 			}
 		}
 		//Clicar no X para SAIR
 		if(event->type == ALLEGRO_EVENT_DISPLAY_CLOSE){
 			exit = true;
 		}
+
+		if(numberPlayers > 4)
+			numberPlayers = 2;
+		if(numberPlayers < 2)
+			numberPlayers = 4;
 	}
+
+	//Destrutores
+	al_destroy_bitmap(astronauts);
+	al_destroy_bitmap(light);
+	al_destroy_bitmap(menuBackground);
 };

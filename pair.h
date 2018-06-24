@@ -1,5 +1,5 @@
-#ifndef PAIR_H
-#define PAIR_H
+#ifndef PAIR_HPP
+#define PAIR_HPP
 
 #include "includes.h"
 
@@ -9,6 +9,5 @@ typedef struct{
 }pair;
 
 void setPos(pair*, int, int);
-void setAllPosition(pair *p);
 
 #endif

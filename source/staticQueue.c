@@ -15,9 +15,10 @@ int fullQueue(queue *q){
 }
 
 void push(queue* q, item_type x){
-	if(fullQueue(q))
+	if(fullQueue(q)){
 		printf("Full Queue!!\n");
 		return;
+	}
 	if(emptyQueue(q))
 		q->start += 1;
 	q->end = (q->end + 1) % q->tam;
@@ -39,6 +40,7 @@ item_type pop(queue* q){
 	}else{
 		q->start += 1;
 	}
+	q->start = q->start % q->tam;
 	return return_;
 }
 

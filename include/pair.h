@@ -1,5 +1,5 @@
-#ifndef PAIR_HPP
-#define PAIR_HPP
+#ifndef PAIR_H
+#define PAIR_H
 
 #include "includes.h"
 

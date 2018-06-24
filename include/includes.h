@@ -25,10 +25,17 @@
 #define HEIGHT 720
 #define GAME_TITLE "PUBG - Planet Ultimate Board Game"
 
+#define MAX 20
+
 //Bibliotecas Próprias
 #include "menu.h"
 #include "tabuleiro.h"
 #include "player.h"
+#define item_type player
+#include "staticQueue.h"
+#include "carta.h"
+#define stack_item_type carta
+#include "staticStack.h"
 
 //Cores
 #define COLOR_RED al_map_rgb(255,0,0)

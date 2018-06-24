@@ -31,6 +31,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 		}
 		
 		al_flip_display();
+
 		al_wait_for_event(eventQueue, event);
 
 		if(event->type == ALLEGRO_EVENT_KEY_DOWN){

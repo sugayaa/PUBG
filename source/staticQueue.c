@@ -38,7 +38,7 @@ item_type pop(queue* q){
 		q->start = -1;
 		q->end = -1;
 	}else{
-		q->start += 1;
+		q->start = (q->start + 1) % q->tam;
 	}
 	q->start = q->start % q->tam;
 	return return_;

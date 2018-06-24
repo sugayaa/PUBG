@@ -61,6 +61,7 @@ void FirstMenu(){
 	//Caminho dos arquivos deve ser relativo ao executável (No momento, em /PUBG/PUBG.run)
 	ALLEGRO_BITMAP *introOne = al_load_bitmap("media/img/intro_one.png");
 	ALLEGRO_BITMAP *logo = al_load_bitmap("media/img/logo.png");
+	ALLEGRO_BITMAP *menuBackground = al_load_bitmap("media/img/");
 
 	logoWidth = al_get_bitmap_width(logo);
 	logoHeight = al_get_bitmap_height(logo);
@@ -73,10 +74,10 @@ void FirstMenu(){
 
 	al_start_timer(timer);
 
-	//Intro(display, introOne, 12);
+	Intro(display, introOne, 12);
 
 	while(!exit){
-		al_clear_to_color(COLOR_WHITE);
+		al_draw_bitmap(menuBackground, 0, 0, 0);
 		al_draw_scaled_bitmap(logo, 0, 0, logoWidth, logoHeight, (WIDTH * 0.5) - (logoWidth * 0.5 * logoDimension), (HEIGHT * 0.5) - (logoHeight * 0.5 * logoDimension) - logoVariation, logoWidth * logoDimension, logoHeight * logoDimension, 0);
 		if(!logoVariation){
 			al_draw_text(font, COLOR_BLACK, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "Press ENTER to Play");
@@ -104,7 +105,7 @@ void FirstMenu(){
 			logoDimension -= 0.007;
 			if(logoVariation >= (float)HEIGHT * 0.35){
 				start = false;
-				SecondMenu(display, font, timer, eventQueue, &event, logo);
+				SecondMenu(display, font, timer, eventQueue, &event, logo, menuBackground);
 				exit = true;
 			}
 		}
@@ -118,7 +119,8 @@ void FirstMenu(){
 }
 
 void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *timer,
-				ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event, ALLEGRO_BITMAP *logo){
+				ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event, ALLEGRO_BITMAP *logo,
+				ALLEGRO_BITMAP *menuBackground){
 
 	bool exit = false;
 	int option = 0;
@@ -129,7 +131,7 @@ void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *tim
 	ALLEGRO_BITMAP *light = al_load_bitmap("media/img/light.png");
 
 	while(!exit){
-		al_clear_to_color(COLOR_RED);
+		al_draw_bitmap(menuBackground, 0, 0, 0);
 		al_draw_scaled_bitmap(logo, 0, 0, logoWidth, logoHeight, (WIDTH * 0.5) - (logoWidth * 0.5), (HEIGHT * 0.08) - (logoHeight * 0.15), logoWidth, logoHeight, 0);
 		
 		//Menu - Opções

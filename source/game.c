@@ -25,8 +25,11 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	while(!exit){
 		al_clear_to_color(COLOR_BLACK);
 		al_draw_bitmap_region(spritePlayers, front(&playersQueue).ID * 64, 0, 64, 64, WIDTH * 0.5, HEIGHT * 0.5, 0);
+		
 		al_flip_display();
-		al_wait_for_event(eventQueue,event);
+
+		al_wait_for_event(eventQueue, event);
+
 		if(event->type == ALLEGRO_EVENT_KEY_DOWN){
 			//ESC para SAIR
 			if(event->keyboard.keycode == ALLEGRO_KEY_ESCAPE){

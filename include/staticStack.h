@@ -3,15 +3,15 @@
 #include "includes.h"
 
 typedef struct stack{
-	item_type body[MAX];
+	stack_item_type body[MAX];
 	int end;
 }stack;
 
 void init(stack* s);
 
-int pushStack(stack* s, item_type item);
+int pushStack(stack* s, stack_item_type item);
 
-item_type top(stack* s);
+stack_item_type top(stack* s);
 
 int emptyStack(stack *s);
 

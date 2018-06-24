@@ -8,6 +8,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	bool exit = false;
 
 	ALLEGRO_BITMAP *spritePlayers = al_load_bitmap("media/img/players.png");
+	ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
 
 	player players[4];
 	queue playersQueue;
@@ -24,7 +25,10 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 	while(!exit){
 		al_clear_to_color(COLOR_BLACK);
-		al_draw_bitmap_region(spritePlayers, front(&playersQueue).ID * 64, 0, 64, 64, WIDTH * 0.5, HEIGHT * 0.5, 0);
+		al_draw_bitmap(gameBackground, 0, 0, 0);
+		for(loops = 0; loops < numberPlayers; loops++){
+			al_draw_bitmap_region(spritePlayers, players[loops].ID * 128, 0, 128, 128, WIDTH * 0.05, HEIGHT * 0.1, 0);
+		}
 		
 		al_flip_display();
 		al_wait_for_event(eventQueue, event);

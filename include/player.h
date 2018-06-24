@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-typedef struct p{
+typedef struct{
 	int ID;
 	int pos;
 	int afk;
@@ -18,5 +18,6 @@ void Dormir(player*);
 void Paralisar(player*);
 
 int getPosicao(player*);
+
 
 #endif

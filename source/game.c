@@ -7,7 +7,9 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	int loops;
 	bool exit = false;
 
+	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.1), 0);
 	ALLEGRO_BITMAP *spritePlayers = al_load_bitmap("media/img/players.png");
+  ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
 
 	srand(time(NULL));
 
@@ -15,12 +17,14 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	player players[4];
 	//fila de turnos
 	queue playersQueue;
-	//pilha de cartas 										<--
+	//pilha de cartas 										
 	stack baralho;
-	//cartas 												<--
+	//cartas 												
 	carta monte[MAX];
 	//tabuleiro
 	tabuleiro gameArena;
+  //lista de posições
+  pair playersPositions;
 
 	//'construtor' de jogadores
 	IniciarPlayers(players);
@@ -40,18 +44,19 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 
 	while(!exit){
-		al_clear_to_color(COLOR_BLACK);
-		//al_draw_bitmap_region(spritePlayers, front(&playersQueue).ID * 64, 0, 64, 64, WIDTH * 0.5, HEIGHT * 0.5, 0);
-		//PRINT ALL 4 Players
-		int i;
-		for(i = 0; i < numberPlayers; i++)
-			al_draw_bitmap_region(spritePlayers, players[i].ID * 64, 0, 64, 64, getPosicao(&players[i]) + players[i].ID * 30, getPosicao(&players[i]) + 30, 0);
 
-		//
-		//printf("Vez do jogador %d !\nRole sua sorte\n", front(&playersQueue).ID+1);
-		//
+		al_draw_bitmap(gameBackground, 0, 0, 0);
 
-
+		switch(numberPlayers){
+			case 4:
+				al_draw_bitmap_region(spritePlayers, 3 * 128, 0, 128, 128, playersPositions[getPosicao(&players[3])].x, playersPositions[getPosicao(&players[3])].y, 0);
+			case 3:
+				al_draw_bitmap_region(spritePlayers, 2 * 128, 0, 128, 128, playersPositions[getPosicao(&players[2])].x + 50, playersPositions[getPosicao(&players[2])].y, 0);
+			case 2:
+				al_draw_bitmap_region(spritePlayers, 1 * 128, 0, 128, 128, playersPositions[getPosicao(&players[1])].x + 25, playersPositions[getPosicao(&players[1])].y + 30, 0);
+				al_draw_bitmap_region(spritePlayers, 0 * 128, 0, 128, 128, playersPositions[getPosicao(&players[0])].x + 75, playersPositions[getPosicao(&players[0])].y + 30, 0);
+				break;
+		}
 
 		al_flip_display();
 

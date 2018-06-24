@@ -24,7 +24,12 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 	while(!exit){
 		al_clear_to_color(COLOR_BLACK);
-		al_draw_bitmap_region(spritePlayers, front(&playersQueue).ID * 64, 0, 64, 64, WIDTH * 0.5, HEIGHT * 0.5, 0);
+		//al_draw_bitmap_region(spritePlayers, front(&playersQueue).ID * 64, 0, 64, 64, WIDTH * 0.5, HEIGHT * 0.5, 0);
+		//PRINT ALL 4 Players
+		int i;
+		for(i = 0; i < numberPlayers; i++)
+			al_draw_bitmap_region(spritePlayers, players[i].ID * 64, 0, 64, 64, getPosicao(&players[i]) + players[i].ID*30, getPosicao(&players[i]) + 30, 0);
+
 		
 		al_flip_display();
 
@@ -37,7 +42,10 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			}
 
 			if(event->keyboard.keycode == ALLEGRO_KEY_SPACE){
-				push(&playersQueue, pop(&playersQueue));
+				//push(&playersQueue, pop(&playersQueue));
+				player atual = pop(&playersQueue);
+				players[atual.ID].pos += 100;
+				push(&playersQueue, players[atual.ID]);
 			}
 		}
 		//Clicar no X para SAIR

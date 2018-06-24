@@ -46,6 +46,7 @@
 #include "tabuleiro.h"
 #include "staticQueue.h"
 #include "staticStack.h"
+#include "pair.h"
 
 //Cores
 #define COLOR_RED al_map_rgb(255,0,0)

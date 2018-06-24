@@ -2,12 +2,12 @@
 #define PLAYER_H
 
 typedef struct p{
+	int ID;
 	int pos;
 	int afk;
-	ALLEGRO_BITMAP* sprite;
 }player;
 
-void IniciarPlayer(player*);
+void IniciarPlayers(player*);
 
 bool IsAFK(player*);
 

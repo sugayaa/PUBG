@@ -73,7 +73,7 @@ void FirstMenu(){
 
 	al_start_timer(timer);
 
-	Intro(display, introOne, 12);
+	//Intro(display, introOne, 12);
 
 	while(!exit){
 		al_draw_bitmap(menuBackground, 0, 0, 0);
@@ -122,7 +122,7 @@ void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *tim
 				ALLEGRO_BITMAP *menuBackground){
 
 	bool exit = false;
-	int numberPlayers = 1, option = 0;
+	int numberPlayers = 2, option = 0;
 	int logoWidth = al_get_bitmap_width(logo);
 	int logoHeight = al_get_bitmap_height(logo);
 

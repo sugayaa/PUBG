@@ -1,9 +1,12 @@
 #include "../include/includes.h"
 
-void IniciarPlayer(player *p){
-	p->pos = 0;
-	p->afk = 0;
-	p->sprite = NULL;
+void IniciarPlayers(player *p){
+	int i;
+	for(i = 0; i <= 3; i++){
+		p[i].ID = i;
+		p[i].pos = 0;
+		p[i].afk = 0;
+	}
 }
 
 bool IsAFK(player *p){

@@ -9,7 +9,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.1), 0);
 	ALLEGRO_BITMAP *spritePlayers = al_load_bitmap("media/img/players.png");
-  ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
+  	ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
 
 	srand(time(NULL));
 
@@ -23,18 +23,18 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	carta monte[MAX];
 	//tabuleiro
 	tabuleiro gameArena;
-  //lista de posições
-  pair playersPositions;
+  	//lista de posições
+  	pair playersPositions[39];
 
 	//'construtor' de jogadores
 	IniciarPlayers(players);
 	//construtor da fila de turnos, limitando tamanho
 	initQueue(&playersQueue, numberPlayers);
-	//construtor da pilha de cartas 						<--
+	//construtor da pilha de cartas 
 	initStack(&baralho);
 	//inicia tabuleiro, limpa e randomiza efeitos
 	Inicia(&gameArena);
-	//ler cartas disponiveis e colocar na pilha				<--
+	//ler cartas disponiveis e colocar na pilha	
 	preencherBaralho(monte, &baralho);
 
 	//insere jogadores na fila de turnos
@@ -42,11 +42,12 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 		push(&playersQueue, players[loops]);
 	}
 
+	//Adiciona as posições do tabuleiro na lista
+	setAllPosition(playersPositions);
 
 	while(!exit){
 
 		al_draw_bitmap(gameBackground, 0, 0, 0);
-
 		switch(numberPlayers){
 			case 4:
 				al_draw_bitmap_region(spritePlayers, 3 * 128, 0, 128, 128, playersPositions[getPosicao(&players[3])].x, playersPositions[getPosicao(&players[3])].y, 0);
@@ -59,7 +60,6 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 		}
 
 		al_flip_display();
-
 		al_wait_for_event(eventQueue, event);
 
 		if(event->type == ALLEGRO_EVENT_KEY_DOWN){

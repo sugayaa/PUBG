@@ -9,5 +9,6 @@ typedef struct{
 }pair;
 
 void setPos(pair*, int, int);
+void setAllPosition(pair *p);
 
 #endif

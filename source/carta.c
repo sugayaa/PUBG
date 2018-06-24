@@ -3,9 +3,11 @@
 //carta baralho[TAM_BARALHO]
 void preencherCartas(carta* baralho){
 	FILE *cartas;
-	cartas = fopen("cartas.sugaya","r");
+	cartas = fopen("include/cartas.sugaya","r");
 
-	if(cartas != NULL){
+	if(cartas == NULL){
+		printf("Erro ao abrir o arquivo cartas.sugaya");
+	}else{
 		int i = 0;
 		char texto_tmp[100];
 
@@ -16,16 +18,21 @@ void preencherCartas(carta* baralho){
 			baralho[i].mov = fgetc(cartas);
 			i += 1;
 		}
-	}else{
-		printf("Erro ao abrir o arquivo cartas.sugaya");
 	}
 }
 
-void preencherBaralho(carta* baralho, stack* s){
-    preencherCartas(baralho);
-	short int i;
-	for(i = 0; i < TAM_BARALHO; ++i){
-		pushStack(s, baralho[i]);
+void embaralha(carta* baralho){
+	int i, idx1, idx2;
+	carta tmp;
+	srand(time(NULL));
+	for(i = 0; i < TAM_BARALHO; i++){
+		idx1 = rand()%TAM_BARALHO;
+		idx2 = rand()%TAM_BARALHO;
+		if(idx1 == idx2)
+			continue;
+		tmp = baralho[idx1];
+		baralho[idx1] = baralho[idx2];
+		baralho[idx2] = tmp;
 	}
 }
 

@@ -9,27 +9,42 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.1), 0);
 	ALLEGRO_BITMAP *spritePlayers = al_load_bitmap("media/img/players.png");
-	ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
+  ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
 
 	srand(time(NULL));
 
-	pair playersPositions[39];
+	//jogadores
 	player players[4];
+	//fila de turnos
 	queue playersQueue;
+	//pilha de cartas 										
+	stack baralho;
+	//cartas 												
+	carta monte[MAX];
+	//tabuleiro
 	tabuleiro gameArena;
+  //lista de posições
+  pair playersPositions;
 
+	//'construtor' de jogadores
 	IniciarPlayers(players);
+	//construtor da fila de turnos, limitando tamanho
 	initQueue(&playersQueue, numberPlayers);
+	//construtor da pilha de cartas 						<--
+	initStack(&baralho);
+	//inicia tabuleiro, limpa e randomiza efeitos
 	Inicia(&gameArena);
-	setAllPosition(playersPositions);
+	//ler cartas disponiveis e colocar na pilha				<--
+	preencherBaralho(monte, &baralho);
 
+	//insere jogadores na fila de turnos
 	for(loops = 0; loops < numberPlayers; loops++){
 		push(&playersQueue, players[loops]);
 	}
 
 
 	while(!exit){
-		al_clear_to_color(COLOR_BLACK);
+
 		al_draw_bitmap(gameBackground, 0, 0, 0);
 
 		switch(numberPlayers){
@@ -44,6 +59,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 		}
 
 		al_flip_display();
+
 		al_wait_for_event(eventQueue, event);
 
 		if(event->type == ALLEGRO_EVENT_KEY_DOWN){
@@ -53,18 +69,28 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			}
 
 			if(event->keyboard.keycode == ALLEGRO_KEY_SPACE){
-				int avanco = (rand() % TAM_DADO) + 1;
+				//push(&playersQueue, pop(&playersQueue));
 				player atual = pop(&playersQueue);
-
-				for(loops = 0; loops < avanco; loops++){
-					al_draw_textf(font, COLOR_WHITE, 300, 620, 0, "Jogador %d rolor %d!", front(&playersQueue).ID + 1 , avanco);
-					al_flip_display();
-					players[atual.ID].pos++;
+				//printf("%d\n", atual.ID); //Debugging purposes
+				//player andando
+				if(IsAFK(&atual)){}
+					//Exibir mensagem de apertar enter para passar a vez
+					//Funcao mover trata isso
+				Mover(&players[atual.ID]);
+				if(!IsAFK(&atual) && getEfeito(&gameArena, getPosicao(&players[atual.ID]))){
+					Dormir(&players[atual.ID]);
 				}
-					al_rest(1);
-				if(players[atual.ID].pos >= TAM)
-					printf("Jogador %d ganhou o jogo!!", atual.ID + 1);
+				if(players[atual.ID].pos > TAM){}
+					//printf("Jogador %d ganhou o jogo!!", atual.ID + 1);
+					//Exibir mensagem que jogador ganhou e terminar o jogo
+
+				//joga jogador novamente no final da fila de turnos
 				push(&playersQueue, players[atual.ID]);
+			}
+
+			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
+				printf("codigo da carta: %d\n", top(&baralho).id);
+				popStack(&baralho);
 			}
 		}
 		//Clicar no X para SAIR

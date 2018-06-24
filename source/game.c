@@ -7,6 +7,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	int loops;
 	bool exit = false;
 
+	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.1), 0);
 	ALLEGRO_BITMAP *spritePlayers = al_load_bitmap("media/img/players.png");
 	ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
 
@@ -53,10 +54,14 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 			if(event->keyboard.keycode == ALLEGRO_KEY_SPACE){
 				int avanco = (rand() % TAM_DADO) + 1;
-
-				//push(&playersQueue, pop(&playersQueue));
 				player atual = pop(&playersQueue);
-				players[atual.ID].pos += avanco;
+
+				for(loops = 0; loops < avanco; loops++){
+					al_draw_textf(font, COLOR_WHITE, 300, 620, 0, "Jogador %d rolor %d!", front(&playersQueue).ID + 1 , avanco);
+					al_flip_display();
+					players[atual.ID].pos++;
+				}
+					al_rest(1);
 				if(players[atual.ID].pos >= TAM)
 					printf("Jogador %d ganhou o jogo!!", atual.ID + 1);
 				push(&playersQueue, players[atual.ID]);

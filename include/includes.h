@@ -41,6 +41,7 @@
 //Bibliotecas Próprias
 #include "menu.h"
 #include "game.h"
+#include "pair.h"
 #include "carta.h"
 #include "player.h"
 #include "tabuleiro.h"

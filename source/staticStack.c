@@ -1,7 +1,8 @@
 #include "../include/includes.h"
 
 void init(stack* s){
-	memset(s->body,(stack_item_type)0, MAX);
+	//memset(s->body,(stack_item_type){}, MAX);
+	
 	s->end = -1;
 }
 

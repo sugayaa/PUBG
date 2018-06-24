@@ -25,16 +25,25 @@
 #define HEIGHT 720
 #define GAME_TITLE "PUBG - Planet Ultimate Board Game"
 
+//Definições para pilha
+#define stack_item_type carta
+#define SUCCESS 1
+#define ERROR -1
+#define IMPOSSIBLE 0xFFFFFFFF;
 #define MAX 20
+
+//Definições tipo carta
+#define TAM_BARALHO 5
+
+//Definições para pilha
+#define item_type player
 
 //Bibliotecas Próprias
 #include "menu.h"
 #include "tabuleiro.h"
 #include "player.h"
-#define item_type player
 #include "staticQueue.h"
 #include "carta.h"
-#define stack_item_type carta
 #include "staticStack.h"
 
 //Cores

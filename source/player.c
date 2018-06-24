@@ -23,7 +23,7 @@ void Mover(player *p){
 }
 
 void Dormir(player *p){
-	p->afk += 3;
+	p->afk += 10;
 }
 
 void Paralisar(player *p){

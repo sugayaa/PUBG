@@ -7,7 +7,7 @@ typedef struct stack{
 	int end;
 }stack;
 
-void init(stack* s);
+void initStack(stack* s);
 
 int pushStack(stack* s, stack_item_type item);
 
@@ -20,5 +20,7 @@ int popStack(stack* s);
 //int popStack(stack* s, item_type* reference);
 
 void clearStack(stack* s);
+
+void preencherBaralho(carta*, stack*);
 
 #endif

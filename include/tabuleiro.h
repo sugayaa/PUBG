@@ -18,6 +18,7 @@ void Limpa(tabuleiro*);
 void RandomizaTabuleiro(tabuleiro*);
 void Randomiza(tabuleiro*, int, int);
 void Inicia(tabuleiro*);
+char getEfeito(tabuleiro* t, int pos);
 void Armageddon(tabuleiro*);
 
 #endif

@@ -11,14 +11,29 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 	srand(time(NULL));
 
+	//jogadores
 	player players[4];
+	//fila de turnos
 	queue playersQueue;
+	//pilha de cartas 										<--
+	stack baralho;
+	//cartas 												<--
+	carta monte[MAX];
+	//tabuleiro
 	tabuleiro gameArena;
 
+	//'construtor' de jogadores
 	IniciarPlayers(players);
+	//construtor da fila de turnos, limitando tamanho
 	initQueue(&playersQueue, numberPlayers);
+	//construtor da pilha de cartas 						<--
+	initStack(&baralho);
+	//inicia tabuleiro, limpa e randomiza efeitos
 	Inicia(&gameArena);
+	//ler cartas disponiveis e colocar na pilha				<--
+	preencherBaralho(monte, &baralho);
 
+	//insere jogadores na fila de turnos
 	for(loops = 0; loops < numberPlayers; loops++){
 		push(&playersQueue, players[loops]);
 	}
@@ -33,7 +48,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			al_draw_bitmap_region(spritePlayers, players[i].ID * 64, 0, 64, 64, getPosicao(&players[i]) + players[i].ID * 30, getPosicao(&players[i]) + 30, 0);
 
 		//
-		printf("Vez do jogador %d !\nRole sua sorte\n", front(&playersQueue).ID+1);
+		//printf("Vez do jogador %d !\nRole sua sorte\n", front(&playersQueue).ID+1);
 		//
 
 
@@ -49,15 +64,28 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			}
 
 			if(event->keyboard.keycode == ALLEGRO_KEY_SPACE){
-
-				int avanco = (rand() % TAM_DADO) + 1;
-
 				//push(&playersQueue, pop(&playersQueue));
 				player atual = pop(&playersQueue);
-				players[atual.ID].pos += avanco;
-				if(players[atual.ID].pos >= TAM)
-					printf("Jogador %d ganhou o jogo!!", atual.ID + 1);
+				//printf("%d\n", atual.ID); //Debugging purposes
+				//player andando
+				if(IsAFK(&atual)){}
+					//Exibir mensagem de apertar enter para passar a vez
+					//Funcao mover trata isso
+				Mover(&players[atual.ID]);
+				if(!IsAFK(&atual) && getEfeito(&gameArena, getPosicao(&players[atual.ID]))){
+					Dormir(&players[atual.ID]);
+				}
+				if(players[atual.ID].pos > TAM){}
+					//printf("Jogador %d ganhou o jogo!!", atual.ID + 1);
+					//Exibir mensagem que jogador ganhou e terminar o jogo
+
+				//joga jogador novamente no final da fila de turnos
 				push(&playersQueue, players[atual.ID]);
+			}
+
+			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
+				printf("codigo da carta: %d\n", top(&baralho).id);
+				popStack(&baralho);
 			}
 		}
 		//Clicar no X para SAIR

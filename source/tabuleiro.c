@@ -25,7 +25,7 @@ void Randomiza(tabuleiro* t, int daOnde, int ateOnde){
 	for(i = daOnde; i != ateOnde + 1; i = (i+1)%TAM){
 		if(rand()%3 == 0){
 			//t->corpo[i].efeito = 65 + (rand()%3);
-		t->corpo[i].efeito = 1;
+			t->corpo[i].efeito = 1;
 		}
 	}
 }
@@ -33,6 +33,10 @@ void Randomiza(tabuleiro* t, int daOnde, int ateOnde){
 void Inicia(tabuleiro* t){
 	Limpa(t);
 	RandomizaTabuleiro(t);
+}
+
+char getEfeito(tabuleiro* t, int pos){
+	return t->corpo[pos].efeito;
 }
 
 void Armageddon(tabuleiro* t){

@@ -11,6 +11,8 @@ typedef struct{
 //carta baralho[TAM_BARALHO]
 void preencherCartas(carta*);
 
+void embaralha(carta*);
+
 int getMove(carta*);
 
 char* getTexto(carta*);

@@ -61,7 +61,7 @@ void FirstMenu(){
 	//Caminho dos arquivos deve ser relativo ao executável (No momento, em /PUBG/PUBG.run)
 	ALLEGRO_BITMAP *introOne = al_load_bitmap("media/img/intro_one.png");
 	ALLEGRO_BITMAP *logo = al_load_bitmap("media/img/logo.png");
-	ALLEGRO_BITMAP *menuBackground = al_load_bitmap("media/img/");
+	ALLEGRO_BITMAP *menuBackground = al_load_bitmap("media/img/PUBG_menu.png");
 
 	logoWidth = al_get_bitmap_width(logo);
 	logoHeight = al_get_bitmap_height(logo);
@@ -80,7 +80,7 @@ void FirstMenu(){
 		al_draw_bitmap(menuBackground, 0, 0, 0);
 		al_draw_scaled_bitmap(logo, 0, 0, logoWidth, logoHeight, (WIDTH * 0.5) - (logoWidth * 0.5 * logoDimension), (HEIGHT * 0.5) - (logoHeight * 0.5 * logoDimension) - logoVariation, logoWidth * logoDimension, logoHeight * logoDimension, 0);
 		if(!logoVariation){
-			al_draw_text(font, COLOR_BLACK, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "Press ENTER to Play");
+			al_draw_text(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "Press ENTER to Play");
 		}
 		al_flip_display();
 		al_wait_for_event(eventQueue, &event);
@@ -135,14 +135,14 @@ void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *tim
 		al_draw_scaled_bitmap(logo, 0, 0, logoWidth, logoHeight, (WIDTH * 0.5) - (logoWidth * 0.5), (HEIGHT * 0.08) - (logoHeight * 0.15), logoWidth, logoHeight, 0);
 		
 		//Menu - Opções
-		al_draw_text(font, COLOR_BLACK, WIDTH * 0.2, HEIGHT * 0.5, ALLEGRO_ALIGN_CENTER, "2 Players");
+		al_draw_text(font, COLOR_WHITE, WIDTH * 0.2, HEIGHT * 0.5, ALLEGRO_ALIGN_CENTER, "2 Players");
 		al_draw_bitmap_region(astronauts, 0 * 128, 0, 128, 128, WIDTH * 0.2 - 61, HEIGHT * 0.4 - 64, 0);
-		al_draw_text(font, COLOR_BLACK, WIDTH * 0.5, HEIGHT * 0.6, ALLEGRO_ALIGN_CENTER, "3 Players");
+		al_draw_text(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.6, ALLEGRO_ALIGN_CENTER, "3 Players");
 		al_draw_bitmap_region(astronauts, 1 * 128, 0, 128, 128, WIDTH * 0.5 - 61, HEIGHT * 0.5 - 64, 0);
-		al_draw_text(font, COLOR_BLACK, WIDTH * 0.8, HEIGHT * 0.5, ALLEGRO_ALIGN_CENTER, "4 Players");
+		al_draw_text(font, COLOR_WHITE, WIDTH * 0.8, HEIGHT * 0.5, ALLEGRO_ALIGN_CENTER, "4 Players");
 		al_draw_bitmap_region(astronauts, 2 * 128, 0, 128, 128, WIDTH * 0.8 - 61, HEIGHT * 0.4 - 64, 0);
-		al_draw_text(font, COLOR_BLACK, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "Options");
-		al_draw_text(font, COLOR_BLACK, WIDTH * 0.5, HEIGHT * 0.9, ALLEGRO_ALIGN_CENTER, "Exit");
+		al_draw_text(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "Options");
+		al_draw_text(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.9, ALLEGRO_ALIGN_CENTER, "Exit");
 
 		switch(option){
 			case 0:

@@ -73,7 +73,7 @@ void FirstMenu(){
 
 	al_start_timer(timer);
 
-	//Intro(display, introOne, 12);
+	Intro(display, introOne, 12);
 
 	while(!exit){
 		al_draw_bitmap(menuBackground, 0, 0, 0);
@@ -126,13 +126,14 @@ void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *tim
 	int logoWidth = al_get_bitmap_width(logo);
 	int logoHeight = al_get_bitmap_height(logo);
 
+	ALLEGRO_FONT *subFont = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.05), 0);
 	ALLEGRO_BITMAP *astronauts = al_load_bitmap("media/img/astronauts.png");
 	ALLEGRO_BITMAP *light = al_load_bitmap("media/img/light.png");
 
 	while(!exit){
 		al_draw_bitmap(menuBackground, 0, 0, 0);
 		al_draw_scaled_bitmap(logo, 0, 0, logoWidth, logoHeight, (WIDTH * 0.5) - (logoWidth * 0.5), (HEIGHT * 0.08) - (logoHeight * 0.15), logoWidth, logoHeight, 0);
-		
+		al_draw_text(subFont, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.23, ALLEGRO_ALIGN_CENTER, "Planet Ultimate Board Game");
 		//Menu - Opções
 		al_draw_text(font, COLOR_WHITE, WIDTH * 0.2, HEIGHT * 0.5, ALLEGRO_ALIGN_CENTER, "2 Players");
 		al_draw_bitmap_region(astronauts, 0 * 128, 0, 128, 128, WIDTH * 0.2 - 61, HEIGHT * 0.4 - 64, 0);
@@ -209,6 +210,7 @@ void SecondMenu(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font, ALLEGRO_TIMER *tim
 	}
 
 	//Destrutores
+	al_destroy_font(subFont);
 	al_destroy_bitmap(astronauts);
 	al_destroy_bitmap(light);
 	al_destroy_bitmap(menuBackground);

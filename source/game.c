@@ -101,11 +101,16 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 		if(movimentation){
 			al_draw_textf(font, COLOR_WHITE, WIDTH * 0.45, HEIGHT * 0.85, 0, "O Jogador %d rolou %d no dado!", atual.ID + 1, dieNumber);
 			al_flip_display();
-			al_rest(1.5);
+			//al_rest(1.5);
 			Mover(&players[atual.ID], dieNumber);
 			//Condição de Vitória
-			if(players[atual.ID].pos > TAM){
+			if(players[atual.ID].pos >= TAM){
 				players[atual.ID].pos = 38;		//Ultima casa do Jogo
+				TheEnd(display, timer, eventQueue, event, players[atual.ID].ID + 1);
+				al_destroy_font(font);
+				al_destroy_bitmap(spritePlayers);
+				al_destroy_bitmap(gameBackground);
+				return ;
 			}
 			movimentation = false;
 		} else {
@@ -114,4 +119,38 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 		al_flip_display();
 	}
+}
+
+void TheEnd(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
+	 		ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event, int ID){
+
+	bool exit = false;
+
+	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.15), 0);
+
+	while(!exit){
+		al_wait_for_event(eventQueue, event);
+
+		if(event->type == ALLEGRO_EVENT_KEY_DOWN){
+			//ESC para SAIR
+			if(event->keyboard.keycode == ALLEGRO_KEY_ESCAPE){
+				exit = true;
+			}
+			//ENTER para SAIR também
+			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
+				exit = true;
+			}
+		}
+		//Clicar no X para SAIR
+		if(event->type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+			exit = true;
+		}
+
+		al_clear_to_color(COLOR_BLACK);
+		al_draw_textf(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "O JOGADOR %d VENCEU!!", ID);
+		al_flip_display();
+	}
+
+	al_destroy_font(font);
+	return ;
 }

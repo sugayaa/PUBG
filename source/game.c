@@ -5,11 +5,12 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	 int numberPlayers){
 	//Variáveis
 	int loops, dieNumber = 0;
-	bool exit = false, movimentation = false;
+	bool exit = false, movimentation = false, readCard = false;
 	player atual;
 	atual.ID = -1;
 
 	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.08), 0);
+	ALLEGRO_FONT *fontHalf = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.06), 0);
 	ALLEGRO_BITMAP *spritePlayers = al_load_bitmap("media/img/players.png");
   	ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
 
@@ -75,15 +76,31 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			}
 
 			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
-				printf("ID da carta: %d\n", top(&baralho).id);
-				printf("MOV da carta: %d\n", top(&baralho).mov);
-				printf("Texto da carta: %s\n", top(&baralho).texto);
-				if(top(&baralho).mov != 0){
-					Mover(&players[atual.ID], top(&baralho).mov);
+				if(!emptyStack(&baralho)){
+					readCard = true;
+					printf("ID da carta: %d\n", top(&baralho).id);
+					printf("MOV da carta: %d\n", top(&baralho).mov);
+					printf("Texto da carta: %s\n", top(&baralho).texto);
+					while(readCard){
+						al_draw_filled_rectangle(0, HEIGHT * 0.4, WIDTH, HEIGHT * 0.6, COLOR_BLACK);
+						al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.45, ALLEGRO_ALIGN_CENTER, top(&baralho).texto);
+						al_flip_display();
+						al_wait_for_event(eventQueue, event);
+						if(event->type == ALLEGRO_EVENT_KEY_DOWN){
+							if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
+								readCard = false;
+							}
+						}
+					}
+					if(top(&baralho).mov != 0){
+						Mover(&players[atual.ID], top(&baralho).mov);
+					} else {
+						Paralisar(&players[atual.ID]);
+					}
+					popStack(&baralho);
 				} else {
-					Paralisar(&players[atual.ID]);
+					printf("Sem cartas no baralho!\n");
 				}
-				popStack(&baralho);
 			}
 		}
 		//Clicar no X para SAIR

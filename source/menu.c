@@ -28,7 +28,7 @@ void Intro(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *intro, int sprites){
 
 		al_draw_bitmap_region(intro, (currentSprite % sprites) * introWidth, 0, introWidth, introHeight, WIDTH * 0.5 - introWidth * 0.5, HEIGHT * 0.5 - introHeight * 0.5, 0);
 		al_flip_display();
-		al_rest(0.25);
+		al_rest(0.15);
 
 		if(currentSprite == sprites - 1){
 			for(alpha = 195; alpha >= 0; alpha -= 15){

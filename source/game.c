@@ -101,7 +101,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 		if(movimentation){
 			al_draw_textf(font, COLOR_WHITE, WIDTH * 0.45, HEIGHT * 0.85, 0, "O Jogador %d rolou %d no dado!", atual.ID + 1, dieNumber);
 			al_flip_display();
-			//al_rest(1.5);
+			al_rest(1.5);
 			Mover(&players[atual.ID], dieNumber);
 			//Condição de Vitória
 			if(players[atual.ID].pos >= TAM){
@@ -127,6 +127,8 @@ void TheEnd(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	bool exit = false;
 
 	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.15), 0);
+	ALLEGRO_BITMAP *background = al_load_bitmap("media/img/PUBG_menu.png");
+	ALLEGRO_BITMAP *victory = al_load_bitmap("media/img/victory_players.png");
 
 	while(!exit){
 		al_wait_for_event(eventQueue, event);
@@ -146,8 +148,9 @@ void TheEnd(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			exit = true;
 		}
 
-		al_clear_to_color(COLOR_BLACK);
-		al_draw_textf(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.8, ALLEGRO_ALIGN_CENTER, "O JOGADOR %d VENCEU!!", ID);
+		al_draw_tinted_bitmap(background, al_map_rgba(75, 75, 75, 255), 0, 0, 0);
+		al_draw_bitmap_region(victory, (ID - 1) * 600, 0, 600, 600, WIDTH * 0.5 - 300, HEIGHT - 600, 0);
+		al_draw_textf(font, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.05, ALLEGRO_ALIGN_CENTER, "O JOGADOR %d VENCEU!!", ID);
 		al_flip_display();
 	}
 

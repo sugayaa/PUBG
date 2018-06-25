@@ -11,11 +11,11 @@ void preencherCartas(carta* baralho){
 		int i = 0;
 		char texto_tmp[100];
 
-		while(i < TAM_BARALHO && fgets(texto_tmp, 100, cartas) != NULL){
+		while(i < TAM_BARALHO && fgets(texto_tmp, sizeof(texto_tmp), cartas) != NULL){
 			baralho[i].id = i;
 			baralho[i].texto = malloc(sizeof(char) * 100);
 			strcpy(baralho[i].texto, texto_tmp);
-			baralho[i].mov = fgetc(cartas);
+			fscanf(cartas, "%d\n",&baralho[i].mov);
 			i += 1;
 		}
 	}

@@ -63,7 +63,6 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 
 					if(IsAFK(&atual)){}
 						//Exibir mensagem de apertar enter para passar a vez
-						//Funcao mover trata isso
 					dieNumber = (rand() % TAM_DADO) + 1;
 
 					if(!IsAFK(&atual) && getEfeito(&gameArena, getPosicao(&players[atual.ID]))){
@@ -76,7 +75,14 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			}
 
 			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
-				printf("codigo da carta: %d\n", top(&baralho).id);
+				printf("ID da carta: %d\n", top(&baralho).id);
+				printf("MOV da carta: %d\n", top(&baralho).mov);
+				printf("Texto da carta: %s\n", top(&baralho).texto);
+				if(top(&baralho).mov != 0){
+					Mover(&players[atual.ID], top(&baralho).mov);
+				} else {
+					Paralisar(&players[atual.ID]);
+				}
 				popStack(&baralho);
 			}
 		}
@@ -155,5 +161,7 @@ void TheEnd(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	}
 
 	al_destroy_font(font);
+	al_destroy_bitmap(background);
+	al_destroy_bitmap(victory);
 	return ;
 }

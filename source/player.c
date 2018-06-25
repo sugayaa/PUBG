@@ -27,7 +27,7 @@ void Dormir(player *p){
 }
 
 void Paralisar(player *p){
-	p->afk += 2;
+	p->afk += 1;
 }
 
 int getPosicao(player *p){

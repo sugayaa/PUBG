@@ -13,13 +13,13 @@ bool IsAFK(player *p){
 	return (bool) p->afk;
 }
 
-void Mover(player *p){
+void Mover(player *p, int dieNumber){
 	if(IsAFK(p)){
 		p->afk -= 1;
 		return;
 	}
-	srand(time(NULL));
-	p->pos += (rand() % TAM_DADO) + 1;
+	
+	p->pos += dieNumber;
 }
 
 void Dormir(player *p){

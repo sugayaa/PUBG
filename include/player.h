@@ -11,7 +11,7 @@ void IniciarPlayers(player*);
 
 bool IsAFK(player*);
 
-void Mover(player*);
+void Mover(player*, int);
 
 void Dormir(player*);
 

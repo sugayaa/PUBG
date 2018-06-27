@@ -1,8 +1,8 @@
 #include "../include/includes.h"
 
 void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
-	 ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event,
-	 int numberPlayers){
+		ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event,
+		int numberPlayers){
 	//Variáveis
 	int loops, dieNumber = 0;
 	bool exit = false, movimentation = false, readCard = false;
@@ -12,7 +12,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	ALLEGRO_FONT *font = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.08), 0);
 	ALLEGRO_FONT *fontHalf = al_load_ttf_font("media/fonts/EliteDanger.ttf", (HEIGHT * 0.06), 0);
 	ALLEGRO_BITMAP *spritePlayers = al_load_bitmap("media/img/players.png");
-  	ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
+	ALLEGRO_BITMAP *gameBackground = al_load_bitmap("media/img/game_background.png");
 
 	srand(time(NULL));
 
@@ -26,8 +26,8 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	carta monte[MAX];
 	//tabuleiro
 	tabuleiro gameArena;
-  	//lista de posições
-  	pair playersPositions[39];
+	//lista de posições
+	pair playersPositions[39];
 
 	//'construtor' de jogadores
 	IniciarPlayers(players);
@@ -63,11 +63,12 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 					atual = pop(&playersQueue);
 
 					if(IsAFK(&atual)){}
-						//Exibir mensagem de apertar enter para passar a vez
+					//Exibir mensagem de apertar enter para passar a vez
 					dieNumber = (rand() % TAM_DADO) + 1;
 
 					if(!IsAFK(&atual) && getEfeito(&gameArena, getPosicao(&players[atual.ID]))){
 						//Dormir(&players[atual.ID]);
+						readCard=true;
 					}
 
 					//joga jogador novamente no final da fila de turnos
@@ -76,31 +77,31 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			}
 
 			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
-				if(!emptyStack(&baralho)){
-					readCard = true;
-					printf("ID da carta: %d\n", top(&baralho).id);
-					printf("MOV da carta: %d\n", top(&baralho).mov);
-					printf("Texto da carta: %s\n", top(&baralho).texto);
-					while(readCard){
-						al_draw_filled_rectangle(0, HEIGHT * 0.4, WIDTH, HEIGHT * 0.6, COLOR_BLACK);
-						al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.45, ALLEGRO_ALIGN_CENTER, top(&baralho).texto);
-						al_flip_display();
-						al_wait_for_event(eventQueue, event);
-						if(event->type == ALLEGRO_EVENT_KEY_DOWN){
-							if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
-								readCard = false;
-							}
-						}
-					}
-					if(top(&baralho).mov != 0){
-						Mover(&players[atual.ID], top(&baralho).mov);
-					} else {
-						Paralisar(&players[atual.ID]);
-					}
-					popStack(&baralho);
-				} else {
-					printf("Sem cartas no baralho!\n");
-				}
+				/*if(!emptyStack(&baralho)){
+				  readCard = true;
+				  printf("ID da carta: %d\n", top(&baralho).id);
+				  printf("MOV da carta: %d\n", top(&baralho).mov);
+				  printf("Texto da carta: %s\n", top(&baralho).texto);
+				  while(readCard){
+				  al_draw_filled_rectangle(0, HEIGHT * 0.4, WIDTH, HEIGHT * 0.6, COLOR_BLACK);
+				  al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.45, ALLEGRO_ALIGN_CENTER, top(&baralho).texto);
+				  al_flip_display();
+				  al_wait_for_event(eventQueue, event);
+				  if(event->type == ALLEGRO_EVENT_KEY_DOWN){
+				  if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
+				  readCard = false;
+				  }
+				  }
+				  }
+				  if(top(&baralho).mov != 0){
+				  Mover(&players[atual.ID], top(&baralho).mov);
+				  } else {
+				  Paralisar(&players[atual.ID]);
+				  }
+				  popStack(&baralho);
+				  } else {
+				  printf("Sem cartas no baralho!\n");
+				  }*/
 			}
 		}
 		//Clicar no X para SAIR
@@ -136,7 +137,32 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 				return ;
 			}
 			movimentation = false;
-		} else {
+		} else if(readCard){
+			if(!emptyStack(&baralho)){
+				al_draw_filled_rectangle(0, HEIGHT * 0.4, WIDTH, HEIGHT * 0.6, COLOR_BLACK);
+				if(strlen(top(&baralho).texto) <= 50){
+				//al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, top(&baralho).texto);
+					al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, "Esta é uma carta");
+				}else{
+					al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, "Esta é uma carta");
+					al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.5, ALLEGRO_ALIGN_CENTER, "Esta é a segunda linha da carta");
+				}
+
+				al_flip_display();
+				al_rest(3);
+				al_flip_display();
+				al_wait_for_event(eventQueue, event);
+				readCard = false;
+				if(top(&baralho).mov != 0){
+					Mover(&players[atual.ID], top(&baralho).mov);
+				} else {
+					Paralisar(&players[atual.ID]);
+				}
+				popStack(&baralho);
+			}else{
+				printf("Sem cartas no baralho!\n");
+			}
+		}else{
 			al_draw_textf(font, COLOR_WHITE, WIDTH * 0.45, HEIGHT * 0.85, 0, "Agora é a vez do Jogador %d", ((atual.ID + 1) % numberPlayers) +1);
 		}
 
@@ -145,7 +171,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 }
 
 void TheEnd(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
-	 		ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event, int ID){
+		ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event, int ID){
 
 	bool exit = false;
 

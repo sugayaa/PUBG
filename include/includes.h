@@ -32,6 +32,10 @@
 #define IMPOSSIBLE 0xFFFFFFFF;
 #define MAX 20
 
+//Definições para pilha dinamica
+typedef struct tipo_Noh tipo_Noh;
+typedef tipo_Noh* apontador;
+
 //Definições tipo carta
 #define TAM_BARALHO 5
 
@@ -47,6 +51,7 @@
 #include "tabuleiro.h"
 #include "staticQueue.h"
 #include "staticStack.h"
+#include "dynamicStack.h"
 
 //Cores
 #define COLOR_RED al_map_rgb(255,0,0)

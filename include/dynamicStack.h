@@ -9,7 +9,7 @@ struct tipo_Noh{
 
 void initDStack(apontador* pilha);
 
-int emptyDStack(apontador* pilha);
+bool emptyDStack(apontador* pilha);
 
 void pushDStack(apontador* pilha, stack_item_type item);
 

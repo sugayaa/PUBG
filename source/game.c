@@ -25,7 +25,8 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	//pilha dinamica de cartas;
 	apontador baralhoDinamico;
 	//cartas
-	carta monte[MAX];
+	//carta monte[MAX];
+	carta monte[TAM_BARALHO];
 	//tabuleiro
 	tabuleiro gameArena;
 	//lista de posições

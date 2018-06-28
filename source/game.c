@@ -20,9 +20,11 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	player players[4];
 	//fila de turnos
 	queue playersQueue;
-	//pilha de cartas 										
+	//pilha de cartas
 	stack baralho;
-	//cartas 												
+	//pilha dinamica de cartas;
+	apontador baralhoDinamico;
+	//cartas
 	carta monte[MAX];
 	//tabuleiro
 	tabuleiro gameArena;
@@ -33,12 +35,16 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	IniciarPlayers(players);
 	//construtor da fila de turnos, limitando tamanho
 	initQueue(&playersQueue, numberPlayers);
-	//construtor da pilha de cartas 
+	//construtor da pilha de cartas
 	initStack(&baralho);
+	//construtor de pilha dinamica de cartas
+	initDStack(&baralhoDinamico);
 	//inicia tabuleiro, limpa e randomiza efeitos
 	Inicia(&gameArena);
 	//ler cartas disponiveis e colocar na pilha	
 	preencherBaralho(monte, &baralho);
+	//ler cartas disponiveis e colocar na pilha dinamica
+	preencherBaralhoD(monte,&baralhoDinamico);
 
 	//insere jogadores na fila de turnos
 	for(loops = 0; loops < numberPlayers; loops++){
@@ -138,9 +144,11 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			}
 			movimentation = false;
 		} else if(readCard){
-			if(!emptyStack(&baralho)){
+			//if(!emptyStack(&baralho)){
+			if(!emptyDStack(&baralhoDinamico)){
 				al_draw_filled_rectangle(0, HEIGHT * 0.4, WIDTH, HEIGHT * 0.6, COLOR_BLACK);
-				if(strlen(top(&baralho).texto) <= 50){
+				//if(strlen(top(&baralho).texto) <= 50){
+				if(strlen(topD(&baralhoDinamico).texto) <= 50){
 				//al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, top(&baralho).texto);
 					al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, "Esta é uma carta");
 				}else{
@@ -153,12 +161,15 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 				al_flip_display();
 				al_wait_for_event(eventQueue, event);
 				readCard = false;
-				if(top(&baralho).mov != 0){
-					Mover(&players[atual.ID], top(&baralho).mov);
+				//if(top(&baralho).mov != 0){
+				if(topD(&baralhoDinamico).mov != 0){
+					//Mover(&players[atual.ID], top(&baralho).mov);
+					Mover(&players[atual.ID], topD(&baralhoDinamico).mov);
 				} else {
 					Paralisar(&players[atual.ID]);
 				}
-				popStack(&baralho);
+				//popStack(&baralho);
+				popDStack(&baralhoDinamico);
 			}else{
 				printf("Sem cartas no baralho!\n");
 			}

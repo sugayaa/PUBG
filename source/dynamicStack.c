@@ -1,10 +1,12 @@
 #include"../include/includes.h"
 
 void initDStack(apontador* pilha){
-	(*pilha)->anterior = NULL;
+	*pilha = (apontador)malloc(sizeof(apontador));
+	//(*pilha)->anterior = NULL;
+	pilha = NULL;
 }
 
-int emptyDStack(apontador* pilha){
+bool emptyDStack(apontador* pilha){
 	return (*pilha) == NULL;
 	//true caso for nulo, false caso proximo apontar para outro lugar
 }
@@ -25,7 +27,7 @@ int popDStack(apontador* pilha){
 		printf("Pilha vazia!!");
 		return 0;
 	}
-	tipo_Noh *remover = *pilha;
+	apontador remover = *pilha;
 	//stack_item_type retorno = remover->valor;
 	*pilha = (*pilha)->anterior;
 	remover->anterior = NULL;

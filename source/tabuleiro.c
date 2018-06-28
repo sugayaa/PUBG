@@ -11,7 +11,7 @@ void Limpa(tabuleiro* t){
 void RandomizaTabuleiro(tabuleiro* t){
 	int i;
 	srand(time(NULL));
-	for(i = 0; i < TAM; i++){
+	for(i = 1; i < TAM; i++){
 		if(rand()%3 == 0){
 			//t->corpo[i].efeito = 65 + (rand()%3);
 		t->corpo[i].efeito = 1;
@@ -19,6 +19,7 @@ void RandomizaTabuleiro(tabuleiro* t){
 	}
 }
 
+//função para ser usada com armageddon
 void Randomiza(tabuleiro* t, int daOnde, int ateOnde){
 	int i;
 	srand(time(NULL));
@@ -41,7 +42,7 @@ char getEfeito(tabuleiro* t, int pos){
 
 void Armageddon(tabuleiro* t){
 	srand(time(NULL));
-	int intensidade = (rand()%5) + 1;
+	int intensidade = (rand() % 3) + 1;
 
 	//verificar a partir dos players e n de todos as peças do tabuleiro
 	//for i in players

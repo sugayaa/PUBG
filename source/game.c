@@ -82,34 +82,6 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 					push(&playersQueue, players[atual.ID]);
 				}
 			}
-
-			if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
-				/*if(!emptyStack(&baralho)){
-				  readCard = true;
-				  printf("ID da carta: %d\n", top(&baralho).id);
-				  printf("MOV da carta: %d\n", top(&baralho).mov);
-				  printf("Texto da carta: %s\n", top(&baralho).texto);
-				  while(readCard){
-				  al_draw_filled_rectangle(0, HEIGHT * 0.4, WIDTH, HEIGHT * 0.6, COLOR_BLACK);
-				  al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.45, ALLEGRO_ALIGN_CENTER, top(&baralho).texto);
-				  al_flip_display();
-				  al_wait_for_event(eventQueue, event);
-				  if(event->type == ALLEGRO_EVENT_KEY_DOWN){
-				  if(event->keyboard.keycode == ALLEGRO_KEY_ENTER){
-				  readCard = false;
-				  }
-				  }
-				  }
-				  if(top(&baralho).mov != 0){
-				  Mover(&players[atual.ID], top(&baralho).mov);
-				  } else {
-				  Paralisar(&players[atual.ID]);
-				  }
-				  popStack(&baralho);
-				  } else {
-				  printf("Sem cartas no baralho!\n");
-				  }*/
-			}
 		}
 		//Clicar no X para SAIR
 		if(event->type == ALLEGRO_EVENT_DISPLAY_CLOSE){
@@ -157,7 +129,6 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 					}
 					for(loops = 52, count = 0; loops <= strlen(topD(&baralhoDinamico).texto); loops++, count++){
 						texto[1][count] = topD(&baralhoDinamico).texto[loops];
-						printf("%c", topD(&baralhoDinamico).texto[loops]);
 					}
 					al_draw_textf(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, "%s", texto[0]);
 					al_draw_textf(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.49, ALLEGRO_ALIGN_CENTER, "%s", texto[1]);
@@ -172,6 +143,18 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 				if(topD(&baralhoDinamico).mov != 0){
 					//Mover(&players[atual.ID], top(&baralho).mov);
 					Mover(&players[atual.ID], topD(&baralhoDinamico).mov);
+					if(players[atual.ID].pos >= TAM){
+						players[atual.ID].pos = 38;		//Ultima casa do Jogo
+						TheEnd(display, timer, eventQueue, event, players[atual.ID].ID + 1);
+						al_destroy_font(font);
+						al_destroy_bitmap(spritePlayers);
+						al_destroy_bitmap(gameBackground);
+						return ;
+					}
+					//Retornar o máximo pra primeira casa do jogo
+					if(players[atual.ID].pos < 0){
+						players[atual.ID].pos = 0;
+					}
 				} else {
 					Paralisar(&players[atual.ID]);
 				}

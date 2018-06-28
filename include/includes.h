@@ -37,7 +37,7 @@ typedef struct tipo_Noh tipo_Noh;
 typedef tipo_Noh* apontador;
 
 //Definições tipo carta
-#define TAM_BARALHO 5
+#define TAM_BARALHO 10
 
 //Definições para pilha
 #define item_type player

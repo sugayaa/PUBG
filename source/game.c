@@ -4,8 +4,9 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 		ALLEGRO_EVENT_QUEUE *eventQueue, ALLEGRO_EVENT *event,
 		int numberPlayers){
 	//Variáveis
-	int loops, dieNumber = 0;
+	int loops, count, dieNumber = 0;
 	bool exit = false, movimentation = false, readCard = false;
+	char texto[2][53];
 	player atual;
 	atual.ID = -1;
 
@@ -149,12 +150,18 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 			if(!emptyDStack(&baralhoDinamico)){
 				al_draw_filled_rectangle(0, HEIGHT * 0.4, WIDTH, HEIGHT * 0.6, COLOR_BLACK);
 				//if(strlen(top(&baralho).texto) <= 50){
-				if(strlen(topD(&baralhoDinamico).texto) <= 50){
-				//al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, top(&baralho).texto);
-					al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, "Esta é uma carta");
+				if(strlen(topD(&baralhoDinamico).texto) < 60){
+					al_draw_textf(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.455, ALLEGRO_ALIGN_CENTER, "%s", topD(&baralhoDinamico).texto);
 				}else{
-					al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, "Esta é uma carta");
-					al_draw_text(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.5, ALLEGRO_ALIGN_CENTER, "Esta é a segunda linha da carta");
+					for(loops = 0; loops < 52; loops++){
+						texto[0][loops] = topD(&baralhoDinamico).texto[loops];
+					}
+					for(loops = 52, count = 0; loops <= strlen(topD(&baralhoDinamico).texto); loops++, count++){
+						texto[1][count] = topD(&baralhoDinamico).texto[loops];
+						printf("%c", topD(&baralhoDinamico).texto[loops]);
+					}
+					al_draw_textf(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.42, ALLEGRO_ALIGN_CENTER, "%s", texto[0]);
+					al_draw_textf(fontHalf, COLOR_WHITE, WIDTH * 0.5, HEIGHT * 0.49, ALLEGRO_ALIGN_CENTER, "%s", texto[1]);
 				}
 
 				al_flip_display();

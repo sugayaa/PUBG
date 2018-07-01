@@ -22,7 +22,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	//fila de turnos
 	queue playersQueue;
 	//pilha de cartas
-	stack baralho;
+	//stack baralho;
 	//pilha dinamica de cartas;
 	apontador baralhoDinamico;
 	//cartas
@@ -38,7 +38,7 @@ void Game(ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer,
 	//construtor da fila de turnos, limitando tamanho
 	initQueue(&playersQueue, numberPlayers);
 	//construtor da pilha de cartas
-	initStack(&baralho);
+	//initStack(&baralho);
 	//construtor de pilha dinamica de cartas
 	initDStack(&baralhoDinamico);
 	//inicia tabuleiro, limpa e randomiza efeitos

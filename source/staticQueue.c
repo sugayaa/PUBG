@@ -30,8 +30,10 @@ item_type front(queue* q){
 }
 
 item_type pop(queue* q){
+	player lixo;
+	lixo.ID = -1;
 	if(emptyQueue(q))
-		return;
+		return lixo;
 
 	item_type return_ = q->body[q->start];
 	if(q->start == q->end){
